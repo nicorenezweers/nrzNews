@@ -1,0 +1,23 @@
+# Standardwerte – jede Einstellung lässt sich mit NRZNEWS_<NAME> überschreiben,
+# z. B. NRZNEWS_PORT=9000 oder NRZNEWS_DATA_DIR=/data (siehe src/config.rs).
+[default]
+address = "0.0.0.0"
+port = 8340
+ident = "nrzNews"
+data_dir = "./data"
+# OPML-Import bis 5 MiB
+limits = { form = "64KiB", json = "1MiB", string = "5MiB" }
+# Echte IP des Aufrufers hinter einem Reverse-Proxy (für die Bremse gegen Passwort-Raten).
+# Der Proxy muss diesen Header setzen; `false` = immer die Adresse der Verbindung.
+ip_header = "X-Real-IP"
+# Cookies nur über HTTPS (NRZNEWS_COOKIE_SECURE=true), sobald nrzNews hinter HTTPS läuft.
+cookie_secure = false
+# Sauber beenden bei Ctrl-C und SIGTERM (docker stop): laufende Anfragen abschliessen,
+# dann die Datenbank schliessen.
+shutdown = { ctrlc = true, signals = ["term", "hup"], grace = 5, mercy = 5 }
+
+[debug]
+log_level = "normal"
+
+[release]
+log_level = "critical"
