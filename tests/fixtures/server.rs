@@ -147,6 +147,11 @@ impl TestServer {
 
 /// Inhalt einer Datei aus `tests/fixtures`.
 pub fn fixture(name: &str) -> String {
+    match name {
+        "page.html" => return PAGE_HTML.to_string(),
+        "plain.html" => return PLAIN_HTML.to_string(),
+        _ => {}
+    }
     std::fs::read_to_string(format!(
         "{}/tests/fixtures/{name}",
         env!("CARGO_MANIFEST_DIR")
@@ -173,3 +178,23 @@ pub fn rss(title: &str, items: &[(&str, &str, &str, i64)]) -> String {
     out.push_str("</channel></rss>");
     out
 }
+
+/// HTML-Seite mit Feed-Links im `<head>` (für das Finden von Feeds).
+const PAGE_HTML: &str = r#"<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>Testseite</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="alternate" type="application/rss+xml" title="Testseite RSS" href="/feed.xml">
+  <link rel="alternate" type="application/atom+xml" href="atom.xml">
+  <link rel="icon" href="/icon-32.png" sizes="32x32">
+</head>
+<body><h1>Willkommen</h1><p>Kein Feed hier, nur Links im Kopf.</p></body>
+</html>
+"#;
+
+/// HTML-Seite ohne Feed-Links.
+const PLAIN_HTML: &str = r#"<!doctype html>
+<html><head><title>Ohne Links</title></head><body><p>Hier steht kein Feed-Link.</p></body></html>
+"#;
