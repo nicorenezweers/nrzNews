@@ -1,12 +1,12 @@
 # syntax=docker/dockerfile:1.10
 # nrzNews – Multi-Stage-Build für amd64 und arm64: Oberfläche (Dioxus/WebAssembly) und Programm
 # (Rust) in einer Datei. Braucht nur Docker – kein Rust auf dem Rechner.
-#   docker build -f docker/nrznews.build -t nrznews .
+#   docker build -f docker/nrznews.containerbuild -t nrznews .
 #   docker run -p 8340:8340 -v nrznews-data:/data nrznews
 # Beide Architekturen (Rust wird quer-kompiliert, nicht emuliert):
-#   docker buildx build -f docker/nrznews.build --platform linux/amd64,linux/arm64 -t <registry>/nrz-news:<version> --push .
+#   docker buildx build -f docker/nrznews.containerbuild --platform linux/amd64,linux/arm64 -t <registry>/nrz-news:<version> --push .
 # Nur das Programm für beide Architekturen (landet in dist/linux_<arch>/nrznews):
-#   docker buildx build -f docker/nrznews.build --platform linux/amd64,linux/arm64 --target binaries --output type=local,dest=dist .
+#   docker buildx build -f docker/nrznews.containerbuild --platform linux/amd64,linux/arm64 --target binaries --output type=local,dest=dist .
 
 ARG DEBIAN=debian:bookworm-slim@sha256:7ff6ba31527b9e336162fa061746c366c4b2032f4d2cff2078bea43f78efe3f8
 

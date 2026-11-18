@@ -6,7 +6,7 @@ services:
     # Selbst bauen statt das fertige Image zu holen:
     # build:
     #   context: .
-    #   dockerfile: docker/nrznews.build
+    #   dockerfile: docker/nrznews.containerbuild
     container_name: nrznews
     restart: unless-stopped
     ports:

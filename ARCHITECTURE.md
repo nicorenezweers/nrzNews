@@ -70,7 +70,7 @@ Times are Unix seconds (UTC). Read articles that are not starred are removed aft
 
 ## Build
 
-`docker/nrznews.build` (the Dockerfile) stages:
+`docker/nrznews.containerbuild` (the Dockerfile) stages:
 
 1. `ui`: installs `dioxus-cli` and builds the WebAssembly interface (`dx bundle --web --release`) once on the build machine
 2. `build`: Rust release build, cross-compiled for amd64/arm64 (bundled SQLite and ring with the target's C compiler); embeds the interface, `locales/` and `static/`

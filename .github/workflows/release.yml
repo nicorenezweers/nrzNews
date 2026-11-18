@@ -54,7 +54,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: docker/nrznews.build
+          file: docker/nrznews.containerbuild
           target: binaries
           platforms: linux/amd64,linux/arm64
           outputs: type=local,dest=dist
@@ -78,7 +78,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: docker/nrznews.build
+          file: docker/nrznews.containerbuild
           target: runtime
           platforms: linux/amd64,linux/arm64
           push: true
