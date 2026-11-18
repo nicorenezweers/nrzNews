@@ -1,0 +1,24 @@
+# Beispiel: docker compose up -d → http://localhost:8340
+# Das erste Konto, das du anlegst, wird Administrator.
+services:
+  nrznews:
+    image: ghcr.io/nicorenezweers/nrz-news:1.0.0
+    # Selbst bauen statt das fertige Image zu holen:
+    # build: .
+    container_name: nrznews
+    restart: unless-stopped
+    ports:
+      - "8340:8340"
+    environment:
+      TZ: Europe/Zurich
+      # Hinter HTTPS (Reverse Proxy) einschalten:
+      NRZNEWS_COOKIE_SECURE: "false"
+      # KI-Anbieter lassen sich auch in der Oberfläche einstellen (Einstellungen → KI):
+      # NRZNEWS_AI_PROVIDER: "openai"
+      # NRZNEWS_AI_KEY: "sk-…"
+    volumes:
+      # nrznews.db: Konten, Feeds, Artikel, Einstellungen – alles in einer Datei
+      - nrznews-data:/data
+
+volumes:
+  nrznews-data:

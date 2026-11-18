@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opml version="2.0">
+  <head><title>Abos aus einem anderen Reader</title></head>
+  <body>
+    <outline text="Technik" title="Technik">
+      <outline type="rss" text="Rust Blog" title="Rust Blog" xmlUrl="{base}/feed.xml" htmlUrl="{base}/"/>
+      <outline text="Unterordner">
+        <outline type="rss" text="Atom Journal" xmlUrl="{base}/atom.xml"/>
+      </outline>
+    </outline>
+    <outline type="rss" text="JSON Beispiel" xmlUrl="{base}/feed.json"/>
+    <outline type="rss" text="Kaputt" xmlUrl="ftp://nicht.erlaubt/feed"/>
+  </body>
+</opml>

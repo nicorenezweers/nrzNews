@@ -1,0 +1,7 @@
+/target
+/data
+.DS_Store
+*.db
+*.db-*
+/.tools
+/dist*

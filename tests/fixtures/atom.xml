@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:base="https://atom.example.com/blog/">
+  <title type="html">Atom &lt;i&gt;Journal&lt;/i&gt;</title>
+  <subtitle>Notizen</subtitle>
+  <link rel="self" href="https://atom.example.com/blog/atom.xml"/>
+  <link rel="alternate" type="text/html" href="https://atom.example.com/blog/"/>
+  <icon>/favicon.png</icon>
+  <id>urn:uuid:60a76c80-d399-11d9-b93C-0003939e0af6</id>
+  <updated>2025-06-12T10:00:00Z</updated>
+  <author><name>Carla</name></author>
+  <entry>
+    <title type="html">Relative &lt;b&gt;Links&lt;/b&gt;</title>
+    <link rel="alternate" href="eintrag-1.html"/>
+    <id>tag:atom.example.com,2025:1</id>
+    <updated>2025-06-12T08:00:00Z</updated>
+    <summary>Nur die Zusammenfassung.</summary>
+    <content type="html">&lt;p&gt;Ein &lt;a href="anderer.html"&gt;Link&lt;/a&gt; und &lt;img src="img/a.png" srcset="img/a.png 1x, img/a@2x.png 2x"&gt;&lt;/p&gt;</content>
+  </entry>
+  <entry>
+    <title>Mit Datum veröffentlicht</title>
+    <link href="https://atom.example.com/blog/eintrag-2.html"/>
+    <link rel="enclosure" type="video/mp4" href="https://atom.example.com/video.mp4"/>
+    <id>tag:atom.example.com,2025:2</id>
+    <published>2025-06-01T12:00:00+02:00</published>
+    <updated>2025-06-05T12:00:00Z</updated>
+    <summary type="text">Erste Zeile
+Zweite Zeile mit &lt;Klammern&gt;</summary>
+  </entry>
+</feed>

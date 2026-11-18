@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:media="http://search.yahoo.com/mrss/"
+     xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Beispiel &amp; Blog</title>
+    <link>https://example.org/</link>
+    <atom:link href="https://example.org/feed.xml" rel="self" type="application/rss+xml"/>
+    <description>Ein Blog über &lt;b&gt;Rust&lt;/b&gt; und Äpfel</description>
+    <item>
+      <title>Erster &lt;em&gt;Beitrag&lt;/em&gt; &amp;amp; mehr</title>
+      <link>/posts/erster</link>
+      <guid isPermaLink="false">post-1</guid>
+      <pubDate>Tue, 10 Jun 2025 09:00:00 GMT</pubDate>
+      <author>anna@example.org (Anna Muster)</author>
+      <description>Kurzfassung, die nicht genommen wird.</description>
+      <content:encoded><![CDATA[
+        <p>Hallo <b>Welt</b>! Siehe <a href="/about">über uns</a>.</p>
+        <script>alert('böse')</script>
+        <style>p { color: red }</style>
+        <iframe src="https://evil.example/"></iframe>
+        <img src="bilder/foto.jpg" alt="Foto" width="640" height="480">
+        <img src="https://tracker.example/pixel.gif" width="1" height="1">
+        <p onclick="steal()">Text mit <span style="color:red">Stil</span>.</p>
+        <form action="/x"><input name="q"><button>Senden</button></form>
+      ]]></content:encoded>
+      <media:thumbnail url="https://cdn.example.org/thumb-1.jpg" width="300" height="200"/>
+    </item>
+    <item>
+      <title>Ohne Datum und ohne GUID</title>
+      <link>https://example.org/posts/zweiter</link>
+      <description><![CDATA[<p>Nur eine <i>Zusammenfassung</i> mit Bild <img src="/img/zwei.png"></p>]]></description>
+      <dc:creator>Bob</dc:creator>
+    </item>
+    <item>
+      <title>Podcast-Folge 7</title>
+      <guid>https://example.org/podcast/7</guid>
+      <pubDate>Wed, 11 Jun 2025 18:30:00 +0200</pubDate>
+      <description>Wir sprechen über Feeds.</description>
+      <enclosure url="https://media.example.org/folge-7.mp3" length="12345" type="audio/mpeg"/>
+    </item>
+    <item>
+      <title>Aus der Zukunft</title>
+      <link>https://example.org/posts/zukunft</link>
+      <guid>zukunft</guid>
+      <pubDate>Fri, 01 Jan 2100 00:00:00 GMT</pubDate>
+      <description>Falsch datiert.</description>
+    </item>
+    <item>
+      <description>Ein Eintrag ganz ohne Titel, Link und Datum – wie bei Mikroblogs üblich.</description>
+    </item>
+  </channel>
+</rss>

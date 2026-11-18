@@ -1,0 +1,67 @@
+[package]
+name = "nrznews"
+version = "1.0.0"
+edition = "2021"
+description = "nrzNews – selbst gehosteter RSS-Reader in Rust (Rocket, SQLite, Dioxus)"
+license = "AGPL-3.0-or-later"
+rust-version = "1.85"
+
+[dependencies]
+# Gemeinsame Typen der JSON-API (auch von der Oberfläche benutzt)
+nrznews-types = { path = "types" }
+
+# Web
+rocket = { version = "=0.5.1", features = ["secrets", "json"] }
+# Rocket 0.5.1 verlangt nur "^0.5.1" für diese beiden – ohne feste Version zieht
+# Cargo 0.5.2 (hyper 1.x), und Rocket 0.5.1 lässt sich nicht mehr übersetzen.
+rocket_http = "=0.5.1"
+rocket_codegen = "=0.5.1"
+
+# Datenbank: eine SQLite-Datei (gebündelt, mit FTS5 für die Volltextsuche)
+sqlx = { version = "0.9", default-features = false, features = ["runtime-tokio", "sqlite", "macros", "migrate", "json"] }
+
+# Laufzeit & Hilfen
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "fs", "sync", "time"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+time = { version = "0.3", features = ["serde", "formatting", "parsing", "macros"] }
+thiserror = "2"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+futures = { version = "0.3", default-features = false, features = ["std"] }
+regex = "1"
+
+# Sicherheit
+argon2 = "0.5"
+rand = "0.8"
+sha2 = "0.10"
+hex = "0.4"
+base64 = "0.22"
+
+# Feeds: Abrufen (rustls, komprimiert), Lesen (RSS, Atom, JSON Feed), Finden, OPML, HTML säubern
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "json", "gzip", "brotli", "deflate"] }
+feed-rs = "3"
+scraper = "0.29"
+opml = "1.1"
+ammonia = "4"
+url = "2"
+
+[build-dependencies]
+flate2 = "1"
+
+[dev-dependencies]
+tempfile = "3"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+strip = true
+
+# Argon2 ist ohne Optimierung rund 50-mal langsamer – sonst dauert jede Anmeldung in Tests
+# und mit `cargo run` über eine Sekunde.
+[profile.dev.package.argon2]
+opt-level = 3
+
+[profile.dev.package.blake2]
+opt-level = 3

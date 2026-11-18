@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <!-- nrzNews: a stack of pages (like nrzPaper) with the feed symbol on the front page.
+       Square, no rounded corners: platforms like Umbrel round the icon themselves. -->
+  <rect width="256" height="256" fill="#18181b"/>
+  <!-- the next article, behind -->
+  <rect x="86" y="50" width="108" height="134" rx="18" fill="#52525b"/>
+  <!-- front page -->
+  <rect x="62" y="72" width="108" height="134" rx="18" fill="#e4e4e7"/>
+  <!-- feed symbol: dot and two arcs around it -->
+  <g fill="none" stroke="#52525b" stroke-width="12" stroke-linecap="round">
+    <path d="M92 135a28 28 0 0 1 28 28"/>
+    <path d="M92 111a52 52 0 0 1 52 52"/>
+  </g>
+  <circle cx="92" cy="163" r="10" fill="#52525b"/>
+</svg>
