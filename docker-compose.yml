@@ -4,7 +4,9 @@ services:
   nrznews:
     image: ghcr.io/nicorenezweers/nrz-news:1.0.0
     # Selbst bauen statt das fertige Image zu holen:
-    # build: .
+    # build:
+    #   context: .
+    #   dockerfile: docker/nrznews.build
     container_name: nrznews
     restart: unless-stopped
     ports:
