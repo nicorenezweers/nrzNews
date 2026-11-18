@@ -30,7 +30,7 @@ nrzNews is one Rust program. It serves the JSON API, the web interface (a Dioxus
 | Area | Choice | Why |
 |---|---|---|
 | Server | Rocket 0.5.1 | Typed request guards for sessions, admins and the origin check; fairings for security headers and the background refresher; graceful shutdown on `SIGTERM` |
-| Storage | One SQLite file through **sqlx 0.9** (bundled SQLite, WAL, migrations embedded with `sqlx::migrate!`) | Backup = one file; no database server to run |
+| Storage | One SQLite file through **sqlx 0.9** (bundled SQLite, WAL, migrations compiled in from `src/db/migrations.rs`) | Backup = one file; no database server to run |
 | Ownership | Feeds belong to one user (like Miniflux); read and starred state live directly on the article | Simple queries and strict separation between accounts, no join table; the same feed subscribed by two people is fetched twice, which is cheap with conditional GET |
 | Fetching | `reqwest` with rustls and gzip/brotli/deflate, one shared client, bounded concurrency (`NRZNEWS_FETCH_CONCURRENCY`), 32 MiB limit, only `http`/`https` | Connection reuse; a broken or hostile server can't fill the memory |
 | Refresh | `If-None-Match` / `If-Modified-Since` (`etag`, `last_modified`), `next_fetch_at` per feed, `error_count` for backoff | Unchanged feeds cost one small request; failing feeds are asked less and less often instead of every round |

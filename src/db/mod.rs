@@ -6,6 +6,8 @@ use sqlx::sqlite::{SqliteConnectOptions, SqliteJournalMode, SqlitePoolOptions, S
 use sqlx::SqlitePool;
 use std::time::Duration;
 
+pub mod migrations;
+
 /// Jetzt als Unix-Sekunden (UTC).
 pub fn now() -> i64 {
     time::OffsetDateTime::now_utc().unix_timestamp()
@@ -34,11 +36,11 @@ pub async fn open(config: &Config) -> Result<SqlitePool, AppError> {
 const MIGRATION_1_CHECKSUM_1_1_0: &str =
     "ceb70adc51bf64ed2f01ebdb92e7fea220d30bcf1ed294c53f340e5c34529f74a43676cac4fdb094d0332436ceb6dbd4";
 
-/// Schema auf den neuesten Stand bringen. Die Migrationen (`migrations/`) sind ins Programm
-/// eingebettet; sqlx merkt sich in `_sqlx_migrations`, was schon gelaufen ist – samt Prüfsumme.
+/// Schema auf den neuesten Stand bringen. Die Migrationen (`db/migrations.rs`) sind Teil des
+/// Programms; sqlx merkt sich in `_sqlx_migrations`, was schon gelaufen ist – samt Prüfsumme.
 /// Angewendete Migrationen darum nie ändern, auch keine Kommentare (tests/schema.rs prüft das).
 pub async fn migrate(pool: &SqlitePool) -> Result<(), AppError> {
-    let migrator = sqlx::migrate!("./migrations");
+    let migrator = migrations::migrator();
     if let Some(m) = migrator.iter().find(|m| m.version == 1) {
         let old = hex_decode(MIGRATION_1_CHECKSUM_1_1_0);
         // Neue Datenbank: die Tabelle gibt es noch nicht – dann ist nichts zu reparieren.

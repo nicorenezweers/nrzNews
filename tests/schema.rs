@@ -44,7 +44,7 @@ fn applied_migrations_are_unchanged() {
         // 1.2.0: API-Tokens
         (2, "d3f84a1759effb16bb5335959068d194dfae9b1d0f1de102e2594b71a384d86ff4fca72a0c4a7b1a17e51483d13c5d67"),
     ];
-    let migrator = sqlx::migrate!("./migrations");
+    let migrator = nrznews::db::migrations::migrator();
     for (version, checksum) in released {
         let m = migrator.iter().find(|m| m.version == version).unwrap();
         assert_eq!(

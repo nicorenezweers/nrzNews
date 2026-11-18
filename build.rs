@@ -19,7 +19,6 @@ const STATIC_MAX_BYTES: u64 = 2 * 1024 * 1024;
 fn main() {
     let manifest = PathBuf::from(std::env::var("CARGO_MANIFEST_DIR").expect("CARGO_MANIFEST_DIR"));
     let out = PathBuf::from(std::env::var("OUT_DIR").expect("OUT_DIR"));
-    println!("cargo:rerun-if-changed=migrations");
     println!("cargo:rerun-if-changed=ui/dist/public");
     println!("cargo:rerun-if-changed=locales");
     println!("cargo:rerun-if-changed=static");

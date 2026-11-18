@@ -1,4 +1,37 @@
--- nrzRSS: Benutzer, Sitzungen, Einstellungen, Ordner, Feeds, Artikel (+ Volltextindex).
+//! Datenbank-Migrationen, direkt im Programm.
+//!
+//! sqlx speichert in `_sqlx_migrations` die SHA-384-Prüfsumme jedes Textes. Angewendete
+//! Migrationen darum nie ändern – auch keine Kommentare oder Leerzeichen (tests/schema.rs prüft
+//! das) –, sondern neue mit der nächsten Nummer hinten anfügen.
+
+use sqlx::migrate::{Migration, MigrationType, Migrator};
+use sqlx::SqlSafeStr;
+
+/// (Version, Beschreibung, SQL)
+pub const MIGRATIONS: &[(i64, &str, &str)] = &[
+    (1, "init", MIGRATION_0001),
+    (2, "api tokens", MIGRATION_0002),
+];
+
+/// Alle Migrationen als sqlx-`Migrator` (Tabelle `_sqlx_migrations`, wie bisher).
+pub fn migrator() -> Migrator {
+    Migrator::with_migrations(
+        MIGRATIONS
+            .iter()
+            .map(|&(version, description, sql)| {
+                Migration::new(
+                    version,
+                    description.into(),
+                    MigrationType::Simple,
+                    sql.into_sql_str(),
+                    false,
+                )
+            })
+            .collect(),
+    )
+}
+
+const MIGRATION_0001: &str = r#"-- nrzRSS: Benutzer, Sitzungen, Einstellungen, Ordner, Feeds, Artikel (+ Volltextindex).
 -- Feeds gehören je einem Benutzer (wie bei Miniflux): jeder hat seine eigenen Abos,
 -- Gelesen/Gemerkt steht direkt am Artikel. Zeitpunkte sind Unix-Sekunden (UTC).
 
@@ -120,3 +153,20 @@ CREATE TRIGGER articles_fts_update AFTER UPDATE OF title, content_text ON articl
     VALUES ('delete', old.id, old.title, old.content_text);
     INSERT INTO articles_fts (rowid, title, content_text) VALUES (new.id, new.title, new.content_text);
 END;
+"#;
+
+const MIGRATION_0002: &str = r#"-- Persönliche API-Tokens für den MCP-Server unter /mcp (z. B. für nrzDashboard). Das Token
+-- selbst steht nirgends, nur sein SHA-256 (hex) – wie bei den Sitzungen. Diese Datei nach
+-- dem Release nie mehr ändern (sqlx prüft die Prüfsumme), sondern neue Migrationen anlegen.
+CREATE TABLE api_tokens (
+    id           INTEGER PRIMARY KEY,
+    user_id      INTEGER NOT NULL REFERENCES users (id) ON DELETE CASCADE,
+    name         TEXT    NOT NULL,
+    token_hash   TEXT    NOT NULL UNIQUE,
+    -- Anfang des Tokens zum Wiedererkennen in der Liste (z. B. "nrznews_AbC1")
+    prefix       TEXT    NOT NULL,
+    created_at   INTEGER NOT NULL,
+    last_used_at INTEGER
+);
+CREATE INDEX api_tokens_user ON api_tokens (user_id);
+"#;

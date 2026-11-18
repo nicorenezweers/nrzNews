@@ -55,7 +55,6 @@ RUN set -eu; \
 WORKDIR /src
 COPY Cargo.toml Cargo.lock build.rs Rocket.toml ./
 COPY types types
-COPY migrations migrations
 COPY src src
 COPY static static
 COPY locales locales
