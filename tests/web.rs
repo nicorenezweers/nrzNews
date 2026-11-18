@@ -81,7 +81,7 @@ async fn app_pages_fall_back_to_the_spa() {
             "{url}"
         );
         if !embedded {
-            assert!(body.contains("scripts/ui.sh"));
+            assert!(body.contains("cargo xtask ui"));
         }
     }
     // Fehlende Dateien der App sind 404, nicht index.html
@@ -286,7 +286,7 @@ async fn locales_are_served_from_the_binary() {
 #[rocket::async_test]
 async fn embedded_app_files_are_served_with_caching_and_gzip() {
     if !nrznews::routes::spa::available() {
-        // Ohne `scripts/ui.sh` vor dem Übersetzen gibt es nichts zu prüfen
+        // Ohne `cargo xtask ui` vor dem Übersetzen gibt es nichts zu prüfen
         return;
     }
     let (client, _dir) = common::client().await;

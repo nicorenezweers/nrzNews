@@ -1,4 +1,9 @@
-/* nrzNews – Oberfläche auf Basis von rust-ui (https://github.com/rust-ui/ui, MIT).
+//! Quelle des Stylesheets der Oberfläche (Tailwind CSS 4 auf Basis von rust-ui).
+//!
+//! `cargo xtask css` schreibt den Text nach `ui/tailwind.css` (nicht im Git); `dx` erzeugt daraus
+//! `assets/tailwind.css`. `cargo xtask ui` macht das vor dem Bauen von selbst.
+
+pub const TAILWIND_CSS: &str = r#"/* nrzNews – Oberfläche auf Basis von rust-ui (https://github.com/rust-ui/ui, MIT).
    Nur Grautöne: das dunkle Theme von rust-ui, Akzente grau statt blau (wie nrzPaper). */
 @import "tailwindcss";
 
@@ -308,3 +313,4 @@
   .prose-ai blockquote { border-left: 3px solid oklch(1 0 0 / 18%); padding-left: 0.9em; color: oklch(0.8 0 0); margin: 0 0 0.75em; }
   .prose-ai hr { border: 0; border-top: 1px solid var(--border); margin: 1em 0; }
 }
+"#;

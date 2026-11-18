@@ -10,3 +10,5 @@ data
 tests
 **/.DS_Store
 dist*
+xtask/target
+ui/tailwind.css

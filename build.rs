@@ -1,6 +1,6 @@
-// Migrationen sind ins Programm eingebettet (sqlx::migrate!) – bei Änderungen neu übersetzen.
+// Migrationen sind Teil des Programms (src/db/migrations.rs) und brauchen hier nichts.
 //
-// Die Oberfläche (Dioxus, `ui/`) wird mit `scripts/ui.sh` nach `ui/dist/public` gebaut und hier
+// Die Oberfläche (Dioxus, `ui/`) wird mit `cargo xtask ui` nach `ui/dist/public` gebaut und hier
 // ins Programm eingebettet: Für jede Datei entsteht ein Eintrag in `$OUT_DIR/spa.rs`, Text und
 // WebAssembly zusätzlich gzip-komprimiert. Fehlt der Ordner, bleibt die Liste leer und der Server
 // zeigt einen Hinweis statt der Oberfläche.

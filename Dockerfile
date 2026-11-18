@@ -22,11 +22,13 @@ WORKDIR /src
 # Die Oberfläche benutzt die Typen der JSON-API aus types/ (Pfad-Abhängigkeit ../types).
 COPY types types
 COPY ui ui
+COPY xtask xtask
 # `dx bundle` räumt seinen Zwischenordner nicht auf – vorher leeren, sonst landen alte
 # WASM-Dateien aus dem Cache mit im Programm.
 RUN --mount=type=cache,target=/usr/local/cargo/registry,sharing=locked \
     --mount=type=cache,target=/src/ui/target,id=nrznews-ui-target \
-    cd ui && rm -rf target/dx/*/release/web/public \
+    cargo run --quiet --manifest-path xtask/Cargo.toml --target-dir /tmp/xtask -- css \
+ && cd ui && rm -rf target/dx/*/release/web/public \
  && PATH=/opt/dx/bin:$PATH dx bundle --web --release --out-dir /tmp/ui \
  && mkdir -p /out && cp -r /tmp/ui/public /out/public && test -f /out/public/index.html
 

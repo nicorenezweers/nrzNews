@@ -1,3 +1,4 @@
 target
 assets/tailwind.css
 dist
+/tailwind.css

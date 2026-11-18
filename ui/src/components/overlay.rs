@@ -177,7 +177,7 @@ struct Toast {
 static TOASTS: GlobalSignal<Vec<Toast>> = Signal::global(Vec::new);
 static NEXT: GlobalSignal<u64> = Signal::global(|| 0);
 
-/// Dauer der Ausblende-Animation (muss zu `toast-out` in tailwind.css passen).
+/// Dauer der Ausblende-Animation (muss zu `toast-out` in ui/tailwind.rs passen).
 const LEAVE_MS: u32 = 220;
 
 fn push(text: String, error: bool) {
