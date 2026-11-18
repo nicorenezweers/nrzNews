@@ -1,0 +1,14 @@
+* text=auto eol=lf
+*.png binary
+*.woff2 binary
+
+# Lockfiles werden von Cargo erzeugt
+Cargo.lock linguist-generated
+ui/Cargo.lock linguist-generated
+xtask/Cargo.lock linguist-generated
+
+# Testdaten (Feeds und Seiten, die die Tests abrufen) – kein Quelltext
+tests/fixtures/** linguist-vendored
+
+# Container-Build, kein Programmcode
+Dockerfile linguist-detectable=false
