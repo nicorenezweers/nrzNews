@@ -2,7 +2,7 @@
 # Das erste Konto, das du anlegst, wird Administrator.
 services:
   nrznews:
-    image: ghcr.io/nicorenezweers/nrz-news:1.0.0
+    image: ghcr.io/nicorenezweers/nrz-news:1.1.0
     # Selbst bauen statt das fertige Image zu holen:
     # build:
     #   context: .

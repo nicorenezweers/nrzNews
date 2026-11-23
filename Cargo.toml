@@ -1,6 +1,6 @@
 [package]
 name = "nrznews"
-version = "1.0.0"
+version = "1.1.0"
 edition = "2021"
 description = "nrzNews – selbst gehosteter RSS-Reader in Rust (Rocket, SQLite, Dioxus)"
 license = "AGPL-3.0-or-later"
@@ -11,11 +11,11 @@ rust-version = "1.85"
 nrznews-types = { path = "types" }
 
 # Web
-rocket = { version = "=0.5.1", features = ["secrets", "json"] }
-# Rocket 0.5.1 verlangt nur "^0.5.1" für diese beiden – ohne feste Version zieht
-# Cargo 0.5.2 (hyper 1.x), und Rocket 0.5.1 lässt sich nicht mehr übersetzen.
-rocket_http = "=0.5.1"
-rocket_codegen = "=0.5.1"
+rocket = { version = "=0.5.4", features = ["secrets", "json"] }
+# Rocket, rocket_http und rocket_codegen immer auf dieselbe feste Version setzen
+# (0.5.4: hyper 1.x / h2 0.4, behebt GHSA-q83h-524g-xf6h).
+rocket_http = "=0.5.4"
+rocket_codegen = "=0.5.4"
 
 # Datenbank: eine SQLite-Datei (gebündelt, mit FTS5 für die Volltextsuche)
 sqlx = { version = "0.9", default-features = false, features = ["runtime-tokio", "sqlite", "macros", "migrate", "json"] }
